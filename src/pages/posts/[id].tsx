@@ -1,6 +1,6 @@
-import { useRouter } from "next/router";
 import type { InferGetStaticPropsType, GetStaticProps, GetStaticPaths } from 'next'
-import { mdxFilePaths, getMdxWithMeta } from "@/lib/mdx-utils";
+import { mdxFilePaths, getMdxData } from "@/lib/mdx-utils";
+import { MDXRemote} from 'next-mdx-remote'
 import MdxLayout from "@/components/mdx-layout";
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -12,18 +12,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const id = params?.id;
-    const {data, content} = getMdxWithMeta(`${id}.mdx`);
-    return { props: {data, content} }
+    const mdxSource = await getMdxData(`${id}.mdx`);
+    const content = mdxSource;
+    const data = mdxSource.frontmatter
+    return { props: {content, data} }
 }
 
-export default function Post({ data, content }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Post({ content, data }: InferGetStaticPropsType<typeof getStaticProps>) {
     // const router = useRouter();
     // const { id } = router.query;
     return (
         <>
         <p>Title: {data.title}</p>
         <p>Tag: {data.tag}</p>
-        <MdxLayout>{content}</MdxLayout>
+        <MdxLayout>
+            <MDXRemote {...content} />
+        </MdxLayout>
         </>
     );
 }
