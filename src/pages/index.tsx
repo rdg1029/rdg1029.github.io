@@ -7,14 +7,14 @@ export const getStaticProps = (async () => {
   return { props: { MDX_PATH, mdxFilePaths } }
 }) satisfies GetStaticProps<{MDX_PATH: string, mdxFilePaths: string[]}>
 
-export default function Home({MDX_PATH, mdxFilePaths}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home({mdxFilePaths}: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
   return (
     <div>
       <p className="text-4xl">Posts</p>
-      {mdxFilePaths.map((fileName => {
+      {mdxFilePaths.map(((fileName, idx) => {
         const title = fileName.replace(".mdx", "");
-        return <p><button onClick={() => router.push(`/posts/${title}`)}>{title}</button></p>
+        return <p key={idx}><button onClick={() => router.push(`/posts/${title}`)}>{title}</button></p>
       }))}
     </div>
   );
