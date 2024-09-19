@@ -1,19 +1,20 @@
-import { useRouter } from 'next/router';
 import type { InferGetStaticPropsType, GetStaticProps } from 'next'
 import { mdxFilePaths, getMdxData, FrontMatter } from "@/lib/mdx-utils";
-import PostItem from '@/components/post-item';
+import { useState } from 'react';
+import PostList from '@/components/post-list';
+import PostTag from '@/components/post-tag';
 
-export const getStaticProps: GetStaticProps<{ postList: FrontMatter[], tagList: string[] }> = (async () => {
-  const postList = await Promise.all(mdxFilePaths.map(async (fileName) => {
+export const getStaticProps: GetStaticProps<{ postListAll: FrontMatter[], tagList: string[] }> = (async () => {
+  const postListAll = await Promise.all(mdxFilePaths.map(async (fileName) => {
     const mdxSource = await getMdxData(`${fileName}`);
     return Object.assign(mdxSource.frontmatter, { id: fileName.replace(".mdx", "") }) as FrontMatter;
   }));
-  const tagList = postList.map((data) => data.tag).reduce((acc, cur) => acc.concat(cur));
-  return { props: { postList, tagList } }
+  const tagList = Array.from(new Set(postListAll.map((data) => data.tag).reduce((acc, cur) => acc.concat(cur))));
+  return { props: { postListAll, tagList } }
 });
 
-export default function Home({ postList, tagList }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const router = useRouter();
+export default function Home({ postListAll, tagList }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [postList, setPostList] = useState(postListAll);
   return (
     <div className='flex flex-col max-w-screen-xl min-w-80 w-full m-auto'>
       <header className='p-5 border-2 border-x-0 border-t-0 border-b-slate-200'>
@@ -22,26 +23,18 @@ export default function Home({ postList, tagList }: InferGetStaticPropsType<type
             <a href='/'>HOME</a>
           </div>
           <div className='flex lg:gap-x-12'>
-            <p>MENU1</p>
+            {/* <p>MENU1</p>
+            <p>MENU2</p>
+            <p>MENU3</p> */}
           </div>
         </nav>
       </header>
-      <main className='flex flex-row gap-x-4 max-w-screen-xl w-full m-auto p-5'>
+      <main className='flex flex-row gap-x-4 w-full m-auto p-5'>
         <div className='grow'>
-          <p className="text-3xl">Posts</p>
-          {postList.map((data, idx) => {
-            return (
-              <PostItem key={idx} data={data} onClick={() => router.push(`/posts/${data.id}`)} />
-            )
-          })}
+          <PostList list={postList} />
         </div>
         <div className='grow-0'>
-          <p className="text-3xl">Tags</p>
-          <div className='flex flex-wrap gap-2'>
-            {Array.from(new Set(tagList)).map((tagName, idx) => {
-              return <p className='rounded-xl bg-neutral-200 text-sm font-semibold py-0.5 px-1' key={idx}>{tagName}</p>
-            })}
-          </div>
+          <PostTag tagList={tagList} postListAll={postListAll} setPostList={setPostList} />
         </div>
       </main>
       <footer className='p-5 border-2 border-x-0 border-b-0 border-t-slate-200'>
