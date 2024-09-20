@@ -2,10 +2,10 @@ import { FrontMatter } from "@/lib/mdx-utils"
 
 type Props = {
     data: FrontMatter;
-    onClick: () => {};
+    onClick: () => void;
 }
 
-export default ({data, onClick}: Props) => {
+export default function PostItem({data, onClick}: Props) {
     return (
         <button
             className='flex flex-col bg-white hover:bg-neutral-50 rounded-3xl hover:shadow-md p-4 m-3 w-full'
