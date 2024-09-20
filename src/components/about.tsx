@@ -1,12 +1,13 @@
 import Image from "next/image"
+import Link from "next/link"
 
 function LinkComponent({title, description, href}: {title: string, description: string, href: string}) {
     const linkCSS = "flex flex-col bg-white hover:bg-neutral-50 rounded-2xl hover:shadow-md p-2"
     return (
-        <a className={linkCSS} href={href}>
+        <Link className={linkCSS} href={href}>
             <p className="font-semibold">{title}</p>
             <p className="text-sm text-neutral-500">{description}</p>
-        </a>
+        </Link>
     )
 }
 
