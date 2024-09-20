@@ -1,6 +1,7 @@
 import type { InferGetStaticPropsType, GetStaticProps } from 'next'
-import { mdxFilePaths, getMdxData, FrontMatter } from "@/lib/mdx-utils";
+import Head from 'next/head';
 import { useState } from 'react';
+import { mdxFilePaths, getMdxData, FrontMatter } from "@/lib/mdx-utils";
 import PostList from '@/components/post-list';
 import PostTag from '@/components/post-tag';
 import About from '@/components/about';
@@ -9,15 +10,55 @@ export const getStaticProps: GetStaticProps<{ postListAll: FrontMatter[], tagLis
   const postListAll = await Promise.all(mdxFilePaths.map(async (fileName) => {
     const mdxSource = await getMdxData(`${fileName}`);
     return Object.assign(mdxSource.frontmatter, { id: fileName.replace(".mdx", "") }) as FrontMatter;
-  }));
-  const tagList = Array.from(new Set(postListAll.map((data) => data.tag).flat()));
+  })).then(list => list.sort((a, b) => Date.parse(b.date) - Date.parse(a.date))); // a.date - b.date => oldest / b.date - a.date => latest
+
+  const tagList = Array.from(new Set(postListAll.map((data) => data.tag).flat())).sort();
+
   return { props: { postListAll, tagList } }
 });
 
 export default function Home({ postListAll, tagList }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [postList, setPostList] = useState(postListAll);
+  const [tag, setTag] = useState("ALL");
+  const [latest, setLatest] = useState(true);
+  
+  function updatePostList({orderLatest, tagName}: {orderLatest?: boolean, tagName?: string}) {
+    setPostList(currList => {
+      if (orderLatest === undefined) {
+        if (tagName === undefined) {
+          return currList;
+        }
+        else if (tagName === "ALL") {
+          return latest ? postListAll : postListAll.toReversed();
+        }
+        else {
+          return latest ? postListAll.filter(data => data.tag.includes(tagName)) : postListAll.filter(data => data.tag.includes(tagName)).reverse();
+        }
+      }
+      else {
+        if (tagName === undefined) {
+          if (tag === "ALL") {
+            return orderLatest ? postListAll : postListAll.toReversed();
+          }
+          else {
+            return orderLatest ? postListAll.filter(data => data.tag.includes(tag)) : postListAll.filter(data => data.tag.includes(tag)).reverse();
+          }
+        }
+        else if (tagName === "ALL") {
+          return orderLatest ? postListAll : postListAll.toReversed();
+        }
+        else {
+          return orderLatest ? postListAll.filter(data => data.tag.includes(tagName)) : postListAll.filter(data => data.tag.includes(tagName)).reverse();
+        }
+      }
+    })
+  }
+
   return (
     <div className='flex flex-col max-w-screen-xl min-w-80 w-full m-auto'>
+      <Head>
+        <title>Blog (@rdg1029)</title>
+      </Head>
       <header className='p-5 border-2 border-x-0 border-t-0 border-b-slate-200'>
         <nav className='mx-auto flex items-center justify-between'>
           <div className='lg:flex-1'>
@@ -35,16 +76,12 @@ export default function Home({ postListAll, tagList }: InferGetStaticPropsType<t
           <About />
         </div>
         <div className='grow'>
-          <PostList list={postList} />
+          <PostList list={postList} latestState={[latest, setLatest]} updatePostList={updatePostList} />
         </div>
         <div className='grow-0'>
-          <PostTag tagList={tagList} postListAll={postListAll} setPostList={setPostList} />
+          <PostTag tag={tag} tagList={tagList} setTag={setTag} updatePostList={updatePostList} />
         </div>
       </main>
-      {/* <footer className='p-5 border-2 border-x-0 border-b-0 border-t-slate-200'>
-        <div><p>EMAIL: wcle3456@gmail.com</p></div>
-        <div><a href='https://github.com/rdg1029'>GITHUB</a></div>
-      </footer> */}
     </div>
   );
 }
