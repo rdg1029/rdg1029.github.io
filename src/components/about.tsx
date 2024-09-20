@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 function LinkComponent({title, description, href}: {title: string, description: string, href: string}) {
     const linkCSS = "flex flex-col bg-white hover:bg-neutral-50 rounded-2xl hover:shadow-md p-2"
     return (
@@ -8,12 +10,12 @@ function LinkComponent({title, description, href}: {title: string, description: 
     )
 }
 
-export default () => {
+export default function About() {
     return (
         <div className='flex flex-col gap-y-2 max-w-64 my-2'>
             <h1 className="text-2xl font-semibold">Profile</h1>
             <div className="flex flex-col bg-neutral-200 rounded-3xl p-4">
-                <img className="rounded-full mb-4" src="https://avatars.githubusercontent.com/u/10252712?v=4" width={96} height={96}></img>
+                <Image className="rounded-full mb-4" src="https://avatars.githubusercontent.com/u/10252712?v=4" width={96} height={96} alt="profile" />
                 <p className="font-bold">김영현 (Younghyun Kim)</p>
                 <p>Frontend Developer</p>
                 <p>E-mail: wcle3456@gmail.com</p>
