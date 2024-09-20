@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { FrontMatter } from "@/lib/mdx-utils"
 import PostItem from "./post-item";
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 type Props = {
     list: FrontMatter[];
@@ -9,7 +9,7 @@ type Props = {
     updatePostList: ({orderLatest, tagName}: {orderLatest?: boolean, tagName?: string}) => void;
 }
 
-export default ({list, latestState, updatePostList}: Props) => {
+export default function PostList({list, latestState, updatePostList}: Props) {
     const router = useRouter();
     const CSS_BTN_ACTIVE = 'font-extrabold underline decoration-2';
     const [latest, setLatest] = latestState;
