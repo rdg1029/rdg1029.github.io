@@ -8,7 +8,7 @@ type Props = {
 export default ({data, onClick}: Props) => {
     return (
         <button
-            className='flex flex-col bg-white rounded-xl shadow-sm hover:shadow-md p-4 m-3 w-full'
+            className='flex flex-col bg-white hover:bg-neutral-50 rounded-3xl hover:shadow-md p-4 m-3 w-full'
             onClick={onClick}
         >
             <p className='text-2xl font-semibold'>{data.title}</p>
