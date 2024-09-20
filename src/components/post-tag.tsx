@@ -7,7 +7,7 @@ type Props = {
     updatePostList: ({orderLatest, tagName}: {orderLatest?: boolean, tagName?: string}) => void;
 }
 
-export default ({tag, tagList, setTag, updatePostList}: Props) => {
+export default function PostTag({tag, tagList, setTag, updatePostList}: Props) {
     return (
         <>
             <p className="text-3xl">Tags</p>
