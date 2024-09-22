@@ -2,10 +2,10 @@ import type { InferGetStaticPropsType, GetStaticProps } from 'next'
 import Head from 'next/head';
 import { useState } from 'react';
 import { mdxFilePaths, getMdxData, FrontMatter } from "@/lib/mdx-utils";
+import Header from '@/components/header';
 import PostList from '@/components/post-list';
 import PostTag from '@/components/post-tag';
 import About from '@/components/about';
-import Link from 'next/link';
 
 export const getStaticProps: GetStaticProps<{ postListAll: FrontMatter[], tagList: string[] }> = (async () => {
   const postListAll = await Promise.all(mdxFilePaths.map(async (fileName) => {
@@ -60,18 +60,7 @@ export default function Home({ postListAll, tagList }: InferGetStaticPropsType<t
       <Head>
         <title>Blog (@rdg1029)</title>
       </Head>
-      <header className='p-5 border-2 border-x-0 border-t-0 border-b-slate-200'>
-        <nav className='mx-auto flex items-center justify-between'>
-          <div className='lg:flex-1'>
-            <Link className='font-bold' href='/'>HOME</Link>
-          </div>
-          <div className='flex lg:gap-x-12'>
-            {/* <p>MENU1</p>
-            <p>MENU2</p>
-            <p>MENU3</p> */}
-          </div>
-        </nav>
-      </header>
+      <Header />
       <main className='flex flex-row gap-x-4 w-full m-auto p-5'>
         <div className='grow-0'>
           <About />
