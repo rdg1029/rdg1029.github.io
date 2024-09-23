@@ -5,7 +5,9 @@ import { serialize } from 'next-mdx-remote/serialize'
 export type FrontMatter = {
     id: string;
     title: string;
-    description: string;
+    description?: string;
+    author?: string;
+    authorImg?: string;
     date: string;
     tag: string[];
 }
