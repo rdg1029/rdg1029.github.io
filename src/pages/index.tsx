@@ -56,7 +56,7 @@ export default function Home({ postListAll, tagList }: InferGetStaticPropsType<t
   }
 
   return (
-    <div className='flex flex-col max-w-screen-xl min-w-80 w-full m-auto'>
+    <div className='flex flex-col max-w-screen-xl min-w-80 w-full m-auto p-4'>
       <Head>
         <title>Blog (@rdg1029)</title>
       </Head>
