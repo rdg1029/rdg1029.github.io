@@ -11,19 +11,19 @@ type Props = {
 
 export default function PostList({list, latestState, updatePostList}: Props) {
     const router = useRouter();
-    const CSS_BTN_ACTIVE = 'font-extrabold underline decoration-2';
+    const CSS_BTN = 'rounded-xl font-extrabold decoration-2 px-1 py-px'
     const [latest, setLatest] = latestState;
 
     return (
         <div className='max-w-screen-lg'>
             <p className="text-3xl">Posts</p>
             <div className='flex flex-row justify-end gap-x-2'>
-                <button className={latest ? CSS_BTN_ACTIVE : ''} onClick={() => {
+                <button className={`${CSS_BTN} ${latest ? 'bg-neutral-400' : 'bg-neutral-200 hover:bg-neutral-300'}`} onClick={() => {
                     if (latest) return;
                     setLatest(true);
                     updatePostList({orderLatest: true});
                 }}>Latest</button>
-                <button className={!latest ? CSS_BTN_ACTIVE : ''} onClick={() => {
+                <button className={`${CSS_BTN} ${latest ? 'bg-neutral-200 hover:bg-neutral-300' : 'bg-neutral-400'}`} onClick={() => {
                     if (!latest) return;
                     setLatest(false);
                     updatePostList({orderLatest: false});
