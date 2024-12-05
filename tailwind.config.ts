@@ -24,7 +24,7 @@ const config: Config = {
             'p code': {
               backgroundColor: '#e5e7eb',
               borderRadius: '8px',
-              color: '#007acc',
+              color: '#0044a0',
               padding: '4px',
             },
           },
