@@ -11,7 +11,7 @@ type Props = {
 
 export default function PostList({list, latestState, updatePostList}: Props) {
     const router = useRouter();
-    const CSS_BTN = 'rounded-xl font-extrabold decoration-2 px-1 py-px'
+    const CSS_BTN = 'rounded-xl font-bold decoration-2 px-1 py-px'
     const [latest, setLatest] = latestState;
 
     return (
