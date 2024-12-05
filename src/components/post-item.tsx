@@ -8,7 +8,7 @@ type Props = {
 export default function PostItem({data, onClick}: Props) {
     return (
         <button
-            className='flex flex-col text-left bg-white hover:bg-neutral-50 rounded-3xl hover:shadow-md p-4 m-3 w-full'
+            className='flex flex-col text-left bg-white hover:bg-neutral-50 rounded-3xl hover:shadow-md p-4 my-3 w-full'
             onClick={onClick}
         >
             <p className='text-xl font-semibold justify-content-start'>{data.title}</p>
