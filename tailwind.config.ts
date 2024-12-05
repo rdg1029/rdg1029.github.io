@@ -12,6 +12,24 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            'code::before': {
+              content: 'none',
+            },
+            'code::after': {
+              content: 'none',
+            },
+            'p code': {
+              backgroundColor: '#e5e7eb',
+              borderRadius: '8px',
+              color: '#007acc',
+              padding: '4px',
+            },
+          },
+        },
+      }
     },
   },
   plugins: [
