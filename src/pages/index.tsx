@@ -6,6 +6,7 @@ import Header from '@/components/header';
 import PostList from '@/components/post-list';
 import PostTag from '@/components/post-tag';
 import About from '@/components/about';
+import Links from '@/components/links';
 
 export const getStaticProps: GetStaticProps<{ postListAll: FrontMatter[], tagList: string[] }> = (async () => {
   const postListAll = await Promise.all(mdxFilePaths.map(async (fileName) => {
@@ -22,8 +23,8 @@ export default function Home({ postListAll, tagList }: InferGetStaticPropsType<t
   const [postList, setPostList] = useState(postListAll);
   const [tag, setTag] = useState("ALL");
   const [latest, setLatest] = useState(true);
-  
-  function updatePostList({orderLatest, tagName}: {orderLatest?: boolean, tagName?: string}) {
+
+  function updatePostList({ orderLatest, tagName }: { orderLatest?: boolean, tagName?: string }) {
     setPostList(currList => {
       if (orderLatest === undefined) {
         if (tagName === undefined) {
@@ -56,19 +57,25 @@ export default function Home({ postListAll, tagList }: InferGetStaticPropsType<t
   }
 
   return (
-    <div className='flex flex-col max-w-screen-xl min-w-80 w-full m-auto p-4'>
+    <div className='flex flex-col max-w-screen-xl w-full m-auto p-4'>
       <Head>
         <title>Blog (@rdg1029)</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       </Head>
       <Header />
-      <main className='flex flex-row gap-x-4 w-full m-auto p-5'>
-        <div className='grow-0'>
-          <About />
+      <main className='flex max-md:flex-col gap-x-4 m-auto p-5'>
+        <div className='block md:grow-0 max-md:order-1'>
+          <div>
+            <About />
+          </div>
+          <div>
+            <Links />
+          </div>
         </div>
-        <div className='grow'>
+        <div className='md:grow max-md:order-3'>
           <PostList list={postList} latestState={[latest, setLatest]} updatePostList={updatePostList} />
         </div>
-        <div className='grow-0'>
+        <div className='md:grow-0 max-md:order-2'>
           <PostTag tag={tag} tagList={tagList} setTag={setTag} updatePostList={updatePostList} />
         </div>
       </main>
