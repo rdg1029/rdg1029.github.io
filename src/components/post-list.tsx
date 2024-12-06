@@ -20,7 +20,7 @@ export default function PostList({list, latestState, updatePostList}: Props) {
     const [listByPages, setListByPages] = useState<FrontMatter[][]>([]);
 
     useEffect(() => {
-        setListByPages(currArr => {
+        setListByPages(() => {
             const origin = Array.from(list);
             const arr = [];
             for (let i = 0; i < MAX_PAGE_NUM; i++) {
@@ -31,7 +31,7 @@ export default function PostList({list, latestState, updatePostList}: Props) {
     }, [list]);
 
     return (
-        <div className='min-w-96 max-w-screen-lg overflow-y-scroll'>
+        <div className='md:min-w-96 max-w-screen-lg overflow-y-scroll'>
             <p className="text-3xl">Posts</p>
             <div className='flex flex-row justify-end gap-x-2'>
                 <button className={`${CSS_BTN} ${latest ? 'bg-neutral-400' : 'bg-neutral-200 hover:bg-neutral-300'}`} onClick={() => {
@@ -46,8 +46,8 @@ export default function PostList({list, latestState, updatePostList}: Props) {
                 }}>Oldest</button>
             </div>
             {listByPages.map((postList, pageIdx) => <div key={pageIdx} className={`${pageNum === pageIdx + 1 ? '' : 'hidden'}`}>{postList.map((data, idx) => <PostItem key={idx} data={data} onClick={() => router.push(`/posts/${data.id}`)} />)}</div>)}
-            <div className='flex'>
-                {listByPages.map((_, idx) => <button key={idx} onClick={() => setPageNum(idx+1)}>{idx+1}</button>)}
+            <div className='flex justify-center gap-x-2'>
+                {listByPages.map((_, idx) => <button className={`${CSS_BTN} ${pageNum === idx + 1 ? 'bg-neutral-400' : 'bg-neutral-200 hover:bg-neutral-300'}`} key={idx} onClick={() => setPageNum(idx+1)}>{idx+1}</button>)}
             </div>
         </div>
     )
