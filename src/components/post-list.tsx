@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { FrontMatter } from "@/lib/mdx-utils"
 import PostItem from "./post-item";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 const ITEMS_PER_PAGE = 5;
 
@@ -14,13 +14,13 @@ type Props = {
 export default function PostList({list, latestState, updatePostList}: Props) {
     const router = useRouter();
     const CSS_BTN = 'rounded-xl font-bold decoration-2 px-1 py-px'
-    const MAX_PAGE_NUM = list.length / ITEMS_PER_PAGE;
     const [latest, setLatest] = latestState;
     const [pageNum, setPageNum] = useState(1);
     const [listByPages, setListByPages] = useState<FrontMatter[][]>([]);
 
     useEffect(() => {
         setListByPages(() => {
+            const MAX_PAGE_NUM = list.length / ITEMS_PER_PAGE;
             const origin = Array.from(list);
             const arr = [];
             for (let i = 0; i < MAX_PAGE_NUM; i++) {
