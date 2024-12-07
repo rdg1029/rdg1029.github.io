@@ -9,7 +9,7 @@ import About from '@/components/about';
 import Links from '@/components/links';
 
 export const getStaticProps: GetStaticProps<{ postListAll: FrontMatter[], tagList: string[] }> = (async () => {
-  const postListAll = await Promise.all(mdxFilePaths.map(async (fileName) => {
+  const postListAll = await Promise.all(mdxFilePaths.filter((fileName) => fileName.match(/\.mdx$/i)).map(async (fileName) => {
     const mdxSource = await getMdxData(`${fileName}`);
     return Object.assign(mdxSource.frontmatter, { id: fileName.replace(".mdx", "") }) as FrontMatter;
   })).then(list => list.sort((a, b) => Date.parse(b.date) - Date.parse(a.date))); // a.date - b.date => oldest / b.date - a.date => latest
