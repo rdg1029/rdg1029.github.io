@@ -1,0 +1,37 @@
+---
+title: "[프로젝트] 블로그 소개"
+description: "블로그 소개 글 입니다."
+author: Younghyun Kim
+authorImg: "https://avatars.githubusercontent.com/u/10252712?v=4"
+date: 2024-12-07
+tag: [프로젝트, Next.js, Typescript, TailwindCSS]
+---
+### 소개
+Next.js 와 TailwindCSS로 만든 개인 블로그 입니다.   
+(2024.09 ~ 진행 중)
+### 링크
+- [블로그 바로가기](https://rdg1029.github.io/)
+- [Github](https://github.com/rdg1029/rdg1029.github.io/)
+### 사용 기술
+|  |  |
+|:---:|:---|
+| **Next.js 14** | Github Pages로 정적 페이지 배포를 위해 Pages Router를 사용했습니다.
+| **Typescript** | 타입 검사를 통해 에러를 줄이고, 코드의 의도를 명확히 표현하기 위해 사용했습니다.
+| **TailwindCSS** | 마크업과 스타일을 하나로 통일하고, 빠른 스타일 적용을 위해 사용했습니다.
+| [**next-mdx-remote**](https://github.com/hashicorp/next-mdx-remote) | Next.js 빌드 시 `getStaticProps()` 내에서 마크다운(MDX) 파일들을 로드하여 해당 데이터들을 화면에 미리 렌더링 하기 위해 사용했습니다.
+| [**rehype-pretty-code**](https://github.com/rehype-pretty/rehype-pretty-code) | 마크다운의 코드 블럭에서 언어에 따른 구문 강조를 위해 적용했습니다.
+### 구현
+- **게시글 내용이 작성된 마크다운(MDX) 파일들로 게시글 목록 표시**
+    + `getStaticProps()`를 통해 빌드 시점에 MDX 파일 목록과 파일의 메타데이터(Frontmatter)를 가져온 후 이를 페이지에 렌더링할 수 있도록 구현했습니다.
+    + `Date.parse()`를 이용하여 날짜 순서대로 게시글 목록을 정렬하였습니다.
+    + 게시글 목록을 여러 페이지로 나눠서 나타낼 수 있도록 구현했습니다. (한 페이지에 최대 5개)
+- **태그(Tag) 별로 게시글 목록 표시**
+    + 해당 태그가 포함된 요소들로 배열을 재구성하여, 게시글 목록이 변경될 수 있도록 구현했습니다.
+    + JavaScript 배열의 내장된 함수인 `filter()`, `includes()`를 이용했습니다.
+- **마크다운(MDX)에 작성된 게시글 내용을 페이지에 렌더링**
+    + 메타데이터(Frontmatter)를 포함한 MDX 파일의 내용을 가져와서 게시글 페이지를 구현했습니다.
+    + `next-mdx-remote` 모듈에서 제공하는 `serialize()` 함수를 이용했습니다.
+- **반응형 페이지 적용**
+### 구현 예정
+- 게시글 검색
+- 다크 모드
