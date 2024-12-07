@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { serialize } from 'next-mdx-remote/serialize'
+import remarkGfm from "remark-gfm";
 import rehypePrettyCode from 'rehype-pretty-code';
 
 export type FrontMatter = {
@@ -26,6 +27,7 @@ export async function getMdxData(fileName: string) {
     const mdxSource = await serialize(source, {
         parseFrontmatter: true,
         mdxOptions: {
+            remarkPlugins: [remarkGfm],
             rehypePlugins: [[rehypePrettyCode, options]],
         },
     });
