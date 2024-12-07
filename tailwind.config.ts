@@ -21,7 +21,7 @@ const config: Config = {
             'code::after': {
               content: 'none',
             },
-            'p code': {
+            'p code,li code': {
               backgroundColor: '#e5e7eb',
               borderRadius: '8px',
               color: '#0044a0',
