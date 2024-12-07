@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 export const getStaticPaths: GetStaticPaths = async () => {
     return {
-        paths: mdxFilePaths.map(fileName => ({ params: { id: fileName.replace(".mdx", "") } })),
+        paths: mdxFilePaths.filter((fileName) => fileName.match(/\.mdx$/i)).map(fileName => ({ params: { id: fileName.replace(".mdx", "") } })),
         fallback: false
     }
 }
