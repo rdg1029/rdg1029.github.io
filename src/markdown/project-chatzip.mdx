@@ -1,0 +1,36 @@
+---
+title: "[프로젝트] ChatZip"
+description: "개인 프로젝트 ChatZip 소개 글 입니다."
+author: Younghyun Kim
+authorImg: "https://avatars.githubusercontent.com/u/10252712?v=4"
+date: 2024-12-08
+tag: [프로젝트, Typescript, Three.js, WebRTC]
+---
+### 소개
+복셀(3D 픽셀)을 이용하여 나만의 공간을 만들고, 해당 공간에서 사람들과 실시간으로 상호 작용할 수 있는 웹 사이트 입니다.
+![Editor image](https://chat-zip.pages.dev/assets/editor.png)
+![Multiplay image](https://chat-zip.pages.dev/assets/multiplay.png)
+(2021.06 ~ 진행 중)
+### 링크
+| 바로가기 | 설명 |
+|:---:|:---|
+| [Web](https://chat-zip.pages.dev/) | 프로젝트 결과물을 볼 수 있는 웹 사이트 입니다.
+| [Engine](https://github.com/Chat-Zip/Engine/) | 프로젝트의 핵심 기능(3D 렌더링, 실시간 통신 등)이 작성 되어 있는 Github 리포지토리 입니다.
+| [Signalling](https://github.com/Chat-Zip/Signalling/) | HTTP Long Polling 방식으로 작동하는 WebRTC 시그널링 서버의 코드가 작성된 Github 리포지토리 입니다.
+### 사용 기술
+| | |
+|:---:|:---|
+| **Typescript** | 타입을 정의하고, 코드의 의도를 명확히 표현하기 위해 사용했습니다.
+| **Three.js** | 웹 페이지에서 3D 공간을 표현하기 위해 사용했습니다.
+| **WebRTC** | 사용자들이 실시간으로 상호 작용할 수 있도록 사용했습니다.
+| **WebTorrent** | 실시간으로 연결된 사용자들이 3D 공간의 정보가 저장된 파일과, 사용자의 모습을 표현하는 이미지 파일을 서로 공유하기 위해 사용했습니다.
+| **JSZip** | 자신이 만든 3D 공간에 대한 데이터를 zip 파일로 저장하고, 해당 파일을 통해 공간을 불러오거나 수정할 수 있도록 하기 위해 사용했습니다.
+| **Webpack** | 여러 개로 나누어진 모듈 파일들을 한 개(혹은 그 이상)의 파일로 묶어서 배포하기 위해 사용했습니다.
+### 구현
+- [**복셀 에디터(Voxel Editor)**](https://chat-zip.pages.dev/editor/)
+- **WebRTC를 활용한 실시간 P2P 통신**
+- **WebTorrent를 활용한 P2P 파일 공유**
+- **HTTP Long Polling 방식의 WebRTC 시그널링 서버**
+### 트러블 슈팅
+### 구현 예정
+- 모바일 환경 지원
