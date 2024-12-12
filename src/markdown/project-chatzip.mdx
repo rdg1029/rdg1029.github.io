@@ -6,18 +6,18 @@ authorImg: "https://avatars.githubusercontent.com/u/10252712?v=4"
 date: 2024-12-08
 tag: [프로젝트, Typescript, Three.js, WebRTC]
 ---
-### 소개
-복셀(3D 픽셀)을 이용하여 공간을 만들고, 해당 공간에서 사람들과 실시간으로 상호 작용할 수 있는 웹 사이트 입니다.
+### 💡소개
+복셀(3D 픽셀)로 공간을 만들고, 해당 공간에서 사람들과 실시간으로 상호 작용할 수 있는 웹 사이트 입니다.
 ![Editor image](https://chat-zip.pages.dev/assets/editor.png)
 ![Multiplay image](https://chat-zip.pages.dev/assets/multiplay.png)
 (2021.06 ~ 진행 중)
-### 링크
+### 🔗링크
 | 바로가기 | 설명 |
 |:---:|:---|
 | [Web](https://chat-zip.pages.dev/) | 프로젝트 결과물을 볼 수 있는 웹 사이트 입니다.
 | [Engine](https://github.com/Chat-Zip/Engine/) | 프로젝트의 핵심 기능(3D 렌더링, 실시간 통신 등)이 작성 되어 있는 Github 리포지토리 입니다.
 | [Signalling](https://github.com/Chat-Zip/Signalling/) | WebRTC의 P2P 연결에 사용되는 시그널링 서버 Github 리포지토리 입니다.
-### 사용 기술
+### ✨사용 기술
 | | |
 |:---:|:---|
 | **Typescript** | 타입을 정의하고, 코드의 의도를 명확히 표현하기 위해 사용했습니다.
@@ -26,39 +26,29 @@ tag: [프로젝트, Typescript, Three.js, WebRTC]
 | **WebTorrent** | 연결된 사용자들이 각각 필요한 파일들을 서로 공유하기 위해 사용했습니다.
 | **JSZip** | 3D 공간을 구성하는 데이터를 zip 파일로 다루기 위해 사용했습니다.
 | **Webpack** | 여러 개로 나누어진 모듈 파일들을 한 개(혹은 그 이상)의 파일로 묶어서 배포하기 위해 사용했습니다.
-### 구현
+### 💻구현
 - **Engine 제작**
-    + Three.js를 사용하여 3D 요소들을 렌더링하는 html `canvas`를 사용자 정의 요소(Custom Elements)로 만들어서 html 코드에서 쉽게 적용할 수 있도록 만들었습니다.
-        - 함수 호출을 통해 해당 요소를 전체화면으로 전환할 수 있도록 구현했습니다.
-    + JavaScript의 키보드 이벤트와 `PointerLock API`를 활용하여 키보드, 마우스로 화면의 움직임을 조작할 수 있도록 구현했습니다.
+    + 사용자 정의 요소(Custom Elements)를 구성하여, html에서 쉽게 적용할 수 있도록 만들었습니다.
+    + 이벤트 리스너를 활용하여 키보드, 마우스로 화면의 움직임을 조작할 수 있도록 구현했습니다.
     + WebRTC를 활용한 P2P 연결을 통해 실시간으로 데이터를 송/수신할 수 있도록 구현했습니다.
     + WebTorrent를 활용한 파일 공유 기능을 구현했습니다.
-    + 3D 공간을 구성하는 데이터를 파일로 저장하고, 해당 파일을 불러올 수 있도록 구현했습니다.
+    + 3D 공간(월드) 데이터를 파일로 저장하고, 해당 파일을 불러올 수 있도록 구현했습니다.
 - [**복셀 에디터(Voxel Editor)**](https://chat-zip.pages.dev/editor/)
     + 직접 제작한 Engine을 기반으로 구현했습니다.
-    + 3D 공간에 복셀(1x1x1 크기) 또는 블럭(8x8x8 크기)을 설치할 수 있도록 구현했습니다.
-    + 설치 가능한 복셀의 색상을 총 64가지로 정의하였습니다.
-    + 복셀의 색상 구성을 변경할 수 있도록 구현했습니다.
+    + 3D 공간에 다양한 색상의 복셀을 설치할 수 있도록 구현했습니다.
     + 3D 공간의 배경 색을 변경할 수 있도록 구현했습니다.
 - [**Play 페이지**](https://chat-zip.pages.dev/play/)
     + 직접 제작한 Engine을 기반으로 구현했습니다.
-    + 사용자 이름 입력, 아바타 이미지 선택을 통해 사용자 정보를 입력할 수 있도록 구현했습니다.
-    + 방 생성 시, 복셀 에디터로 만들어진 월드(3D 공간 데이터) 파일을 선택하여 방을 생성할 수 있도록 구현했습니다.
-    + 방 접속 시, 초대 코드를 통해 사용자와 연결할 수 있도록 구현했습니다.
-        - 초대 코드는 숫자와 소문자 알파벳으로 구성된 6자리 문자열을 사용합니다.
-    + 사용자 연결 시, `WebTorrent`를 통해 월드 파일과 서로의 아바타 이미지 파일을 송/수신 하도록 구현했습니다.
+    + 월드(3D 공간 데이터) 파일을 선택하여 방을 생성할 수 있도록 구현했습니다.
+    + 초대 코드를 통해 사용자와 연결할 수 있도록 구현했습니다.
 - **시그널링 서버**
     + WebRTC의 P2P 연결 과정에서 클라이언트 간 연결 정보를 교환하기 위해 구현했습니다.
-    + `WebSocket` 대신 `HTTP Long Polling` 방식으로 구현했습니다.
-        - 무료 호스팅 플랫폼에 쉽게 배포할 수 있습니다.
-        - 클라이언트와 서버 간 연결을 계속 유지하고 있을 필요가 없습니다.
-    + Bun 런타임 환경에서 작동하도록 구현했습니다.
-    + 무료 호스팅 플랫폼 [Render](https://render.com)에 배포했습니다.
-### 트러블 슈팅
+    + `HTTP Long Polling` 방식으로 구현했습니다.
+### 🚨트러블 슈팅
 - **Webpack 빌드 시 `Module not found` 오류 발생**
     + **문제 상황**
         - `WebTorrent` 모듈을 사용한 프로젝트를 Webpack으로 빌드 했을 때, `Module not found` 오류가 발생했습니다.
-        - [Webtorrent 공식 문서](https://webtorrent.io/docs)에서 Webpack과 관련된 내용을 찾을 수 없었습니다.
+        - [WebTorrent 공식 문서](https://webtorrent.io/docs)에서 Webpack과 관련된 내용을 찾을 수 없었습니다.
     + **해결**
         - Github에서 관련된 [issue](https://github.com/webtorrent/webtorrent/issues/2771)를 발견할 수 있었습니다.
             + 브라우저에서 사용할 수 없는 NodeJS 전용 모듈 사용했을 때 발생하는 오류였습니다.
@@ -88,7 +78,6 @@ tag: [프로젝트, Typescript, Three.js, WebRTC]
             ...
         }
         ```
-- **Three.JS 패키지 업데이트 후 색상 문제**
-### 구현 예정
+### ✅구현 예정
 - 채팅 기능
 - 모바일 환경 지원
