@@ -31,7 +31,7 @@ export default function PostList({list, latestState, updatePostList}: Props) {
     }, [list]);
 
     return (
-        <div className='md:min-w-96 max-w-screen-lg overflow-y-scroll'>
+        <div className='md:min-w-96 max-w-screen-lg'>
             <p className="text-3xl">Posts</p>
             <div className='flex flex-row justify-end gap-x-2'>
                 <button className={`${CSS_BTN} ${latest ? 'bg-neutral-400' : 'bg-neutral-200 hover:bg-neutral-300'}`} onClick={() => {

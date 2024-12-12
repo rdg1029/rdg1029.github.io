@@ -1,0 +1,94 @@
+---
+title: "[프로젝트] ChatZip"
+description: "개인 프로젝트 ChatZip 소개 글 입니다."
+author: Younghyun Kim
+authorImg: "https://avatars.githubusercontent.com/u/10252712?v=4"
+date: 2024-12-08
+tag: [프로젝트, Typescript, Three.js, WebRTC]
+---
+### 💡소개
+복셀(3D 픽셀)로 공간을 만들고, 해당 공간에서 사람들과 실시간으로 상호 작용할 수 있는 웹 사이트 입니다.
+![Editor image](https://chat-zip.pages.dev/assets/editor.png)
+![Multiplay image](https://chat-zip.pages.dev/assets/multiplay.png)
+- #### 개발 기간
+    + **(2021.06 ~ 진행 중)**
+- #### 배경
+    + 프로젝트 기획 당시 코로나19로 인해 사람들과 만나서 재미있는 시간을 보내기 어려운 상황이었습니다. 이러한 상황에서, 사람들이 비대면으로 활동을 하며, 소통할 수 있는 방법이 필요하다고 느꼈습니다.
+- #### 목표
+    + 이를 해결하기 위해, 웹 환경에서 누구나 쉽게 자신만의 공간을 만들고, 그 공간에서 다른 사람들과 실시간으로 상호작용할 수 있는 소규모 플랫폼을 개발하고자 했습니다.
+### 🔗링크
+| 바로가기 | 설명 |
+|:---:|:---|
+| [Web](https://chat-zip.pages.dev/) | 프로젝트 결과물을 볼 수 있는 웹 사이트 입니다.
+| [Engine](https://github.com/Chat-Zip/Engine/) | 프로젝트의 핵심 기능(3D 렌더링, 실시간 통신 등)이 작성 되어 있는 Github 리포지토리 입니다.
+| [Signalling](https://github.com/Chat-Zip/Signalling/) | WebRTC의 P2P 연결에 사용되는 시그널링 서버 Github 리포지토리 입니다.
+### ✨사용 기술
+| | |
+|:---:|:---|
+| **Typescript** | 타입을 정의하고, 코드의 의도를 명확히 표현하기 위해 사용했습니다.
+| **Three.js** | 웹 페이지에서 3D 공간을 표현하기 위해 사용했습니다.
+| **WebRTC** | 사용자 간의 실시간 상호 작용을 구현하기 위해 사용했습니다.
+| **WebTorrent** | 사용자들이 필요한 파일을 서로 공유하기 위해 사용했습니다.
+| **JSZip** | 3D 공간을 구성하는 데이터를 zip 파일로 다루기 위해 사용했습니다.
+| **Webpack** | 여러 개로 나누어진 모듈 파일들을 한 개(혹은 그 이상)의 파일로 묶어서 배포하기 위해 사용했습니다.
+### 💻구현
+- **Engine 제작**
+    + 사용자 정의 요소(Custom Elements)를 구성하여, html에서 쉽게 적용할 수 있도록 만들었습니다.
+    + 이벤트 리스너를 활용하여 키보드, 마우스로 화면의 움직임을 조작할 수 있도록 구현했습니다.
+    + WebRTC를 활용한 P2P 연결을 통해 실시간으로 데이터를 송/수신할 수 있도록 구현했습니다.
+    + WebTorrent를 활용한 파일 공유 기능을 구현했습니다.
+    + 3D 공간(월드) 데이터를 파일로 저장하고, 해당 파일을 불러올 수 있도록 구현했습니다.
+- [**복셀 에디터(Voxel Editor)**](https://chat-zip.pages.dev/editor/)
+    + 직접 제작한 Engine을 기반으로 구현했습니다.
+    + 사용자 친화적인 UI를 통해 누구나 쉽게 공간을 창작할 수 있도록 구성했습니다.
+    + 3D 공간에 다양한 색상의 복셀을 설치할 수 있도록 구현했습니다.
+    + 3D 공간의 배경 색을 변경할 수 있도록 구현했습니다.
+- [**Play 페이지**](https://chat-zip.pages.dev/play/)
+    + 직접 제작한 Engine을 기반으로 구현했습니다.
+    + 월드(3D 공간 데이터) 파일을 선택하여 방을 생성할 수 있도록 구현했습니다.
+    + 초대 코드를 통해 사용자와 연결할 수 있도록 구현했습니다.
+- **시그널링 서버**
+    + WebRTC의 P2P 연결 과정에서 클라이언트 간 연결 정보를 교환하기 위해 구현했습니다.
+    + `HTTP Long Polling` 방식으로 구현했습니다.
+### 🚨트러블 슈팅
+- **Webpack 빌드 시 `Module not found` 오류 발생**
+    + **문제 상황**
+        - `WebTorrent` 모듈을 사용한 프로젝트를 Webpack으로 빌드 했을 때, `Module not found` 오류가 발생했습니다.
+            + 해당 오류는 NodeJS 전용 모듈을 브라우저에서 사용하려고 했을 때 발생하는 오류였습니다.
+        - [WebTorrent 공식 문서](https://webtorrent.io/docs)에서 Webpack과 관련된 내용을 찾을 수 없어서 추가적으로 조사가 필요했습니다.
+    + **해결 과정**
+        - WebTorrent의 Github [Issue](https://github.com/webtorrent/webtorrent/issues/2771)에서 유사한 문제를 겪은 사용자를 찾았습니다.
+            + Issue에서 제안된 내용을 바탕으로 Github Repository의 [package.json](https://github.com/webtorrent/webtorrent/blob/c8ffdda0d0a03571bab2644cb5e0033d47486294/package.json#L11) 내용을 참고한 후, Webpack 설정 파일을 아래와 같이 수정했습니다.
+            ```js title="webpack.config.js"
+            module.exports = {
+                ...
+                resolve: {
+                    ...
+                    fallback: {
+                        "./lib/conn-pool.js": false,
+                        "./lib/utp.cjs": false,
+                        "@silentbot1/nat-api": false,
+                        "bittorrent-dht": false,
+                        "crypto": false,
+                        "fs": false,
+                        "fs-chunk-store": "hybrid-chunk-store",
+                        "http": false,
+                        "load-ip-set": false,
+                        "net": false,
+                        "os": false,
+                        "ut_pex": false,
+                        "dgram": false,
+                        "dns": false,
+                    }
+                },
+                ...
+            }
+            ```
+            + 해당 설정을 통해 빌드를 정상적으로 수행하여 웹 브라우저에서 오류 없이 WebTorrent 모듈을 사용할 수 있었습니다.
+    + **배운 점**
+        - Webpack의 `resolve.fallback` 옵션을 통해 특정 모듈을 번들링 대상에서 제외하거나 대체 할 수 있다는 것을 학습했습니다.
+### ✅향후 과제
+- **채팅 기능**
+    + WebRTC의 `Datachannel`을 통해 사용자 간에 채팅 데이터를 송/수신할 수 있도록 구현할 예정입니다.
+- **모바일 환경 지원**
+    + `TouchEvent`를 활용하여 터치 스크린에서 조작할 수 있도록 구현할 계획입니다.
