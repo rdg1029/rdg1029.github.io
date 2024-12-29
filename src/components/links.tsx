@@ -16,7 +16,8 @@ export default function Links() {
             <h1 className="text-2xl font-semibold">Links</h1>
             <LinkComponent title='GITHUB' description='깃허브 프로필 페이지' href='https://github.com/rdg1029' />
             <h1 className="text-lg font-medium">Personal Projects</h1>
-            <LinkComponent title='ChatZip (개발 중)' description='웹 기반 실시간 3D 채팅' href='https://github.com/Chat-Zip' />
+            <LinkComponent title='ChatZip' description='웹 기반 실시간 3D 채팅' href='https://github.com/Chat-Zip' />
+            <LinkComponent title='RoSPagram' description='Flutter 기반 가위바위보 경쟁 게임' href='https://github.com/RoSPagram' />
             <h1 className="text-lg font-medium">Team Projects</h1>
             <LinkComponent title='SoulRest' description='2019 스마트서울 모바일 앱공모전 장려상 수상작' href='https://github.com/yymin1022/SeoulHealing' />
             <LinkComponent title='EComuity' description='2022 KBSC 출품작' href='https://github.com/DefCon-Apps/ECOmunity-FE' />
